@@ -1,3 +1,4 @@
+Admin.destroy_all
 Claim.destroy_all
 Donation.destroy_all
 Client.destroy_all
@@ -8,7 +9,7 @@ donor1 = Donor.create!(
 	organization_name: "Example",
 	email: "donor@donor.com",
 	password: "donor",
-	address_street: "101 S Main St",
+	address_street: "101 Main St",
 	address_city: "Seattle",
 	address_state: "WA",
 	address_zip: 98101,
@@ -20,7 +21,7 @@ donor2 = Donor.create!(
 	organization_name: "Unapproved",
 	email: "approve@me.com",
 	password: "approve",
-	address_street: "202 S Main St",
+	address_street: "202 Main St",
 	address_city: "Seattle",
 	address_state: "WA",
 	address_zip: 98101,
@@ -99,13 +100,14 @@ donation5 = Donation.create!(
 )
 
 puts "Seeding Clients..."
+
 client1 = Client.create!(
 	email: "c1@me.com",
 	password: "password1",
 	address_street: "1411 4th Ave",
 	address_city: "Seattle",
 	address_state: "Washington",
-	address_zip: "98101",
+	address_zip: 98101,
 	account_status: "active",
 	transportation_method: "car",
 	ethnicity: "Black or African American",
@@ -118,7 +120,7 @@ client2 = Client.create!(
 	address_street: "2901 3rd Ave",
 	address_city: "Seattle",
 	address_state: "Washington",
-	address_zip: "98121",
+	address_zip: 98121,
 	account_status: "pending",
 	transportation_method: "walk",
 	ethnicity: "White",
@@ -131,7 +133,7 @@ client3 = Client.create!(
 	address_street: "111 S Jackson St",
 	address_city: "Seattle",
 	address_state: "Washington",
-	address_zip: "98104",
+	address_zip: 98104,
 	account_status: "suspended",
 	transportation_method: "bike",
 	ethnicity: "Hispanic or Latino",
@@ -162,6 +164,12 @@ claim3 = Claim.create!(
 	completed: false,
 	time_claimed: nil,
 	canceled: true,
+)
+
+puts "Seeding Admins..."
+Admin.create!(
+	email: 'admin@admin.com',
+	password: 'admin',
 )
 
 puts "Finished with no errors"
