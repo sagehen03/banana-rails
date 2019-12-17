@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'clients/:id/donations', to: 'clients#get_donations'
 
   post 'claims/create', to: 'claims#create'
-  patch 'claims/:id/update', to: 'claims#update'
+  post 'claims/:id/update', to: 'claims#update'
 
   resources :donors, except: [:delete]
   resources :donations, except: [:delete]
