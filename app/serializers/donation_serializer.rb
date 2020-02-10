@@ -1,6 +1,7 @@
 class DonationSerializer < ActiveModel::Serializer
   attributes :id,
     :canceled,
+    :claims,
     :created_at,
     :updated_at,
     :donor_id,
@@ -11,5 +12,4 @@ class DonationSerializer < ActiveModel::Serializer
     :per_person,
     :pickup_location,
     :total_servings
-
 end

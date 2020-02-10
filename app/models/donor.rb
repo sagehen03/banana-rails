@@ -17,6 +17,6 @@ class Donor < ApplicationRecord
 	geocoded_by :address
 	after_validation :geocode
 	def address
-		[address_street, address_city, address_state, "US"].compact.join(', ')
+		[ address_street, address_city, address_state, address_zip ].compact.join(', ')
 	end
 end

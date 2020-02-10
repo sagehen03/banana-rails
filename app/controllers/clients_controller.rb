@@ -55,42 +55,61 @@ class ClientsController < ApplicationController
 
     puts 'travel distance:', @distance
 
-    @available = Donation.all.select do |d|
+    # @available = Donation.all.select do |d|
       # Check if each donation is still active based on the time it was created and its duration.
       # Time.now comes back in seconds, so we divide by 60 to compare in minutes.
 
-      # NOTE: For testing purposes, we are returning all donations, so we don't have to keep creating new ones.
-      # NOTE: Uncomment the next line when that is ready to change.
+      # # NOTE: For testing purposes, we are returning all donations, so we don't have to keep creating new ones.
+      # # NOTE: Uncomment the next line when that is ready to change.
       # (Time.now - d.created_at) / 60 < d.duration_minutes
+    # end
 
-      # NOTE: Kill next line when making the above change.
-      true
-    end
+    # Kill the next line when reinstating the above method
+    @available = Donation.all
 
     # Uncomment the below code to limit donations by distance.
     # @reachable = @available.select do |donation|
     #   # Check @distance from client to donor of donation
     #   donor = Donor.find(donation.donor_id)
-    #   donor.distance_to([client_lat, client_long]) <= @distance
-    # end
+    #   donor.distance_to([ client_lat, client_long ]) <= @distance
+    # end.as_json
 
     # HACK: shows all donations while we are in test mode.  Remove this when uncommenting the above code.
     @reachable = @available
+    @reachable_as_json = @reachable.as_json
 
-    puts 'reachable:', @reachable.map(&:food_name)
-    render json: @reachable, include: 'claims', status: :ok
+    reachable_by_address = {}
+
+    @reachable.each {|donation|
+      donation_json = donation.as_json
+      address = donation.donor.address
+      donation[:claims] = Donation.find(donation.id).claims
+      reachable_by_address[address] ?
+        reachable_by_address[address][:donations].push(donation) :
+        reachable_by_address[address] = {
+          organization_name: donation.donor.organization_name,
+          coords: {
+            latitude: donation.donor.latitude,
+            longitude: donation.donor.longitude,
+          },
+          distance: donation.donor.distance_to([ client_lat, client_long ]),
+          donations: [ donation ]
+        }      
+    }
+
+    render json: @reachable_by_address, status: :ok
   end
 
   def get_claims
     @user = Client.find(params[:id])
     @claims = @user.claims
-    @claims_to_return = @claims.as_json
+    @claims_as_json = @claims.as_json
     @claims.each_with_index { |claim, i|
-      @claims_to_return[i]['address'] = claim.donation.donor.address
-      @claims_to_return[i]['donor'] = claim.donation.donor.organization_name
-      @claims_to_return[i]['donation'] = claim.donation.as_json
+      @claims_as_json[i]['address'] = claim.donation.donor.address
+      @claims_as_json[i]['donor'] = claim.donation.donor.organization_name
+      @claims_as_json[i]['donation'] = claim.donation.as_json
     }
-    render json: @claims_to_return, status: :ok
+    render json: @claims_as_json, status: :ok
   end
 
   private
