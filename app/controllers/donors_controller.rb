@@ -81,16 +81,21 @@ class DonorsController < ApplicationController
 	def donor_params
 		params.require(:donor).permit(
 			:id,
-			:account_status,
+			:email,
+			:password,
+			:first_name,
+			:last_name,
+			:organization_name,
 			:address_street,
 			:address_city,
 			:address_state,
 			:address_zip,
-			:business_license,
-			:email,
-			:organization_name,
-			:password,
-			:pickup_instructions
+			:account_status,
+			:pickup_instructions,
+			# :business_license,
+			# :business_phone_number,
+			# :business_doc_id,
+			# :profile_pic_link
 		)
 	end
 end

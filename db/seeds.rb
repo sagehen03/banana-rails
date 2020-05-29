@@ -9,6 +9,8 @@ Donor.destroy_all
 puts "Seeding Donors..."
 
 donor1 = Donor.create!(
+	first_name: "Nancy",
+	last_name: "McFood",
 	organization_name: "Foods 4 U",
 	email: "donor@donor.com",
 	password: "donor",
@@ -18,9 +20,14 @@ donor1 = Donor.create!(
 	address_zip: 98104,
 	business_license: "9198DD435AS3456",
 	account_status: "active",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor2 = Donor.create(
+	first_name: "Bob",
+	last_name: "Binkler",
 	organization_name: "Unapproved",
 	email: "approve@me.com",
 	password: "approve",
@@ -30,9 +37,14 @@ donor2 = Donor.create(
 	address_zip: 98134,
 	business_license: "DSJ0984DFGK32",
 	account_status: "pending",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor3 = Donor.create(
+	first_name: "Rachel",
+	last_name: "Maneshevitz",
 	organization_name: "ABC Grocery",
 	email: "donor3@donor3.com",
 	password: "donor3",
@@ -42,9 +54,14 @@ donor3 = Donor.create(
 	address_zip: 98005,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor4 = Donor.create(
+	first_name: "Gigi",
+	last_name: "Goode",
 	organization_name: "Good Food Restaurant",
 	email: "donor4@donor4.com",
 	password: "donor4",
@@ -54,9 +71,14 @@ donor4 = Donor.create(
 	address_zip: 98101,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor5 = Donor.create(
+	first_name: "Serenity",
+	last_name: "Now",
 	organization_name: "A Coffeeshop",
 	email: "donor5@donor5.com",
 	password: "donor5",
@@ -66,9 +88,14 @@ donor5 = Donor.create(
 	address_zip: 98104,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 	)
 donor6 = Donor.create(
+	first_name: "Chad",
+	last_name: "Charles",
 	organization_name: "Chad's Deli",
 	email: "donor6@donor6.com",
 	password: "donor6",
@@ -78,9 +105,14 @@ donor6 = Donor.create(
 	address_zip: 98104,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor7 = Donor.create(
+	first_name: "Joanna",
+	last_name: "Soto",
 	organization_name: "Fancy Foods",
 	email: "donor7@donor7.com",
 	password: "donor7",
@@ -90,9 +122,14 @@ donor7 = Donor.create(
 	address_zip: 98122,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor8 = Donor.create(
+	first_name: "Issa",
+	last_name: "Rae",
 	organization_name: "XYZ Grocery",
 	email: "donor8@donor8.com",
 	password: "donor8",
@@ -102,9 +139,14 @@ donor8 = Donor.create(
 	address_zip: 98102,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor9 = Donor.create(
+	first_name: "Greta",
+	last_name: "Thunberg",
 	organization_name: "Dangerousway",
 	email: "donor9@donor9.com",
 	password: "donor9",
@@ -114,9 +156,14 @@ donor9 = Donor.create(
 	address_zip: 98101,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	 business_phone_number: '8675309',
+	 business_doc_id: '8675309',
+	 profile_pic_link: 'http://www.link.com'
 )
 donor10 = Donor.create(
+	first_name: "Sasha",
+	last_name: "Fierce",
 	organization_name: "Macco Groceries",
 	email: "donor10@donor10.com",
 	password: "donor10",
@@ -126,7 +173,10 @@ donor10 = Donor.create(
 	address_zip: 98102,
 	business_license: "123456789",
 	account_status: "approved",
-	pickup_instructions: 'Please go to the front desk.'
+	pickup_instructions: 'Please go to the front desk.',
+	business_phone_number: '8675309',
+	business_doc_id: '8675309',
+	profile_pic_link: 'http://www.link.com'
 )
 
 puts "Seeding Donations..."

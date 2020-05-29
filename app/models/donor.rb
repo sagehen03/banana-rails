@@ -4,16 +4,23 @@ class Donor < ApplicationRecord
 	has_many :donations
 	has_many :claims, through: :donations
 	accepts_nested_attributes_for :claims
-	
-	validates :organization_name, presence: true
+
 	validates :email, uniqueness: { case_sensitive: false }
-	validates :business_license, presence: true
+	validates :first_name, presence: true
+	validates :last_name, presence: true
+	validates :organization_name, presence: true
 	validates :address_street, presence: true
 	validates :address_city, presence: true
 	validates :address_state, presence: true
 	validates :address_zip, presence: true
-	#TODO: add operation hours ??
-
+	validates :account_status, presence: true
+	validates :pickup_instructions, presence: true
+	# validates :business_license, presence: true 	     # commented out for pre-alpha
+	# validates :business_phone_number, presence: true   # commented out for pre-alpha
+	# validates :business_doc_id, presence: true         # commented out for pre-alpha
+	# validates :profile_pic_link, presence: true        # commented out for pre-alpha
+	# TODO: add operation hours ??
+	
 	geocoded_by :address
 	after_validation :geocode
 	def address
