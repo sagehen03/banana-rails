@@ -101,14 +101,16 @@ class ClientsController < ApplicationController
   def client_params
     params.require(:client).permit(
       :account_status,
-      :address_street,
-      :address_city,
-      :address_zip,
-      :address_state,
+      #:address_street,
+      #:address_city,
+      #:address_zip,
+      #:address_state,
       :email,
-      :ethnicity,
-      :gender,
-      :password
+      #:ethnicity,
+      #:gender,
+      :password,
+      :first_name,
+      :last_name
     )
   end
 end

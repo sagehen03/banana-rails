@@ -1,9 +1,9 @@
 class ClientSerializer < ActiveModel::Serializer
   attributes :id,
     :account_status,
-    :address_street,
-    :address_city,
-    :address_state,
-    :address_zip,
+    #:address_street,
+    #:address_city,
+    #:address_state,
+    #:address_zip,
     :email
 end

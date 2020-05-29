@@ -409,6 +409,8 @@ client1 = Client.create!(
 	account_status: "active",
 	ethnicity: "Black or African American",
 	gender: "Prefer Not to Answer",
+    first_name: "John",
+    last_name: "Doe"
 )
 
 client2 = Client.create(
@@ -420,7 +422,9 @@ client2 = Client.create(
 	address_zip: 98121,
 	account_status: "pending",
 	ethnicity: "White",
-	gender: "Female"
+	gender: "Female",
+    first_name: "David",
+    last_name: "Jones"
 )
 
 client3 = Client.create(
@@ -432,7 +436,9 @@ client3 = Client.create(
 	address_zip: 98104,
 	account_status: "suspended",
 	ethnicity: "Hispanic or Latino",
-	gender: "Male"
+	gender: "Male",
+    first_name: "Mark",
+    last_name: "Lee"
 )
 
 puts "Seeding Claims..."
