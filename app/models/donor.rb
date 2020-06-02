@@ -5,7 +5,7 @@ class Donor < ApplicationRecord
 	has_many :claims, through: :donations
 	accepts_nested_attributes_for :claims
 
-	validates :email, uniqueness: { case_sensitive: false }
+	validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
 	validates :first_name, presence: true
 	validates :last_name, presence: true
 	validates :organization_name, presence: true
@@ -15,10 +15,10 @@ class Donor < ApplicationRecord
 	validates :address_zip, presence: true
 	validates :account_status, presence: true
 	validates :pickup_instructions, presence: true
-	# validates :business_license, presence: true 	     # commented out for pre-alpha
-	# validates :business_phone_number, presence: true   # commented out for pre-alpha
-	# validates :business_doc_id, presence: true         # commented out for pre-alpha
-	# validates :profile_pic_link, presence: true        # commented out for pre-alpha
+	# validates :business_license, presence: true, length: { is: 9 }  # commented out for pre-alpha
+	# validates :business_phone_number, presence: true                # commented out for pre-alpha
+	# validates :business_doc_id, presence: true                      # commented out for pre-alpha
+	# validates :profile_pic_link, presence: true                     # commented out for pre-alpha
 	# TODO: add operation hours ??
 	
 	geocoded_by :address
