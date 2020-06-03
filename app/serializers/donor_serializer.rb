@@ -1,13 +1,18 @@
 class DonorSerializer < ActiveModel::Serializer
   attributes :id,
-    :account_status,
+    :email,
+    :first_name,
+    :last_name,
+    :organization_name,
     :address_street,
     :address_city,
     :address_state,
     :address_zip,
-    :business_license,
+    :account_status,
+    :pickup_instructions,
     :donations,
-    :email,
-    :organization_name,
-    :pickup_instructions
+    # :business_license,        # commented out for pre-alpha
+    # :business_phone_number,   # commented out for pre-alpha
+    # :business_doc_id,         # commented out for pre-alpha
+    # :profile_pic_link,        # commented out for pre-alpha
 end
