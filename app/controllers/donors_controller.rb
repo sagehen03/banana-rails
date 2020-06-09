@@ -1,6 +1,6 @@
 class DonorsController < ApplicationController
-	skip_before_action :authorized, only: [:create, :account_status]
-
+    skip_before_action :authorized, only: [:create]
+    
 	def get_donations
 		id = params[:id].to_i
 		authorized_id = decoded_token[0]['donor_id']
@@ -13,18 +13,21 @@ class DonorsController < ApplicationController
 		render json: @donor.donations, include: 'claims', status: :ok
 	end
 
+    
 	def create
 		return render json: { error: 'donor email already in use'}, status: :conflict if Donor.exists?({email: donor_params[:email]})
-		@donor = Donor.create!(donor_params)
+		@donor = Donor.create(donor_params)
 		if @donor.valid?
 			@token = encode_token(donor_id: @donor.id)
 			session[:donor_id] = @donor.id
 			render json: { donor: DonorSerializer.new(@donor), jwt: @token }, status: :created
 		else
-			render json: { error: 'failed to create donor' }, status: :unprocessable_entity
-		end
-	end
-
+            @donor.errors.full_messages
+            render json: { error: 'failed to create donor' }, status: :bad_request
+        end
+    end
+	
+    
 	def account_status
 		id = params[:id].to_i
 		status = params[:status]
@@ -53,12 +56,21 @@ class DonorsController < ApplicationController
 		@donor = Donor.find(params[:id])
 		if @donor.update(donor_params)
 			render json: @donor
-		else
-			failure_message = { error: "Donor id: #{params[:id]} was not updated. #{@donor.errors.full_messages}" }
-			puts failure_message
-			render json: failure_message
-		end
-	end
+        else
+            failure_message = {}
+            failure_message['message'] = "Donor id: #{params[:id]} was not updated."
+            failure_message['field_errors'] = []
+            @donor.errors.each do |attr_name, attr_value|
+                message = {}
+                message['field'] = attr_name
+                message['message'] = attr_value
+                failure_message['field_errors'] << message
+            end
+            render json: failure_message, status: :bad_request
+            puts failure_message
+        end
+    end
+    
 
 	def scan_qr_code
 		claim = JSON.parse(Base64.decode64(params[:qr_code]))
@@ -91,8 +103,8 @@ class DonorsController < ApplicationController
 			:address_city,
 			:address_state,
 			:address_zip,
-			:account_status,
-			:pickup_instructions,
+            :pickup_instructions,
+			:account_status
 			# :business_license,
 			# :business_phone_number,
 			# :business_doc_id,
@@ -100,3 +112,4 @@ class DonorsController < ApplicationController
 		)
 	end
 end
+

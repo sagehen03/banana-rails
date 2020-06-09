@@ -109,7 +109,7 @@ GEM
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
-    puma (3.12.6)
+    puma (3.12.4)
     rack (2.0.8)
     rack-cors (1.0.5)
       rack (>= 1.6.0)
@@ -163,7 +163,7 @@ GEM
       thread_safe (~> 0.1)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.5)
+    websocket-extensions (0.1.4)
     zeitwerk (2.1.10)
 
 PLATFORMS
@@ -191,4 +191,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   1.17.3
+   1.17.2

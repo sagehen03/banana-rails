@@ -1,5 +1,6 @@
 class ClientAuthController < ApplicationController
 	skip_before_action :authorized, only: [:create]
+    
 
 	def create
 		@client = Client.find_by(email: client_login_params[:email])
