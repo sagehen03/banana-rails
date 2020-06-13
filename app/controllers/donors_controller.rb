@@ -14,6 +14,7 @@ class DonorsController < ApplicationController
 	end
 
 	def create
+		return render json: { error: 'donor email already in use'}, status: :conflict if Donor.exists?({email: donor_params[:email]})
 		@donor = Donor.create!(donor_params)
 		if @donor.valid?
 			@token = encode_token(donor_id: @donor.id)

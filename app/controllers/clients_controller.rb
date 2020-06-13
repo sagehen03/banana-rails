@@ -12,7 +12,9 @@ class ClientsController < ApplicationController
   end
 
   def create
+    return render json: { error: 'client email already in use'}, status: :conflict if Client.exists?({email: client_params[:email]})
     @client = Client.create!(client_params)
+
     if @client.valid?
       @token = encode_token(client_id: @client.id)
       render json: { client: ClientSerializer.new(@client), jwt: @token }, status: :created
