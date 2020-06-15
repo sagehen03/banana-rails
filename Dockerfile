@@ -1,13 +1,17 @@
 FROM rubylang/ruby:2.6.3-bionic
+RUN apt-get update -qq && apt-get -y install postgresql-client libpq5 libpq-dev
 RUN mkdir /banana-rails
 WORKDIR /banana-rails
-COPY . /banana-rails
-RUN apt-get update -qq
-RUN apt-get -y install postgresql-client libpq5 libpq-dev 
-RUN gem install pg -v '1.1.4' --source 'https://rubygems.org/'
-RUN bundle install
 
-# Add a script to be executed every time the container starts.
+# gem install
+COPY Gemfile /banana-rails/Gemfile
+COPY Gemfile.lock /banana-rails/Gemfile.lock
+RUN bundle install
+RUN gem install pg -v '1.1.4' --source 'https://rubygems.org/'
+
+COPY . /banana-rails
+
+# executable
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
