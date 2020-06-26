@@ -163,7 +163,7 @@ GEM
       thread_safe (~> 0.1)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.5)
+    websocket-extensions (0.1.4)
     zeitwerk (2.1.10)
 
 PLATFORMS
@@ -191,4 +191,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   1.17.3
+   1.17.2

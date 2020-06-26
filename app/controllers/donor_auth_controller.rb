@@ -1,5 +1,5 @@
 class DonorAuthController < ApplicationController
-	skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create]
 
 	def create
 		@donor = Donor.find_by(email: donor_login_params[:email])

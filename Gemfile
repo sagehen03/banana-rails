@@ -49,3 +49,6 @@ gem "faker", "~> 2.7"
 gem "geocoder", "~> 1.6.1"
 
 gem "httparty", "~> 0.17.3"
+
+
+
