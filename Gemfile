@@ -46,7 +46,7 @@ gem "active_model_serializers", "~> 0.10.10"
 
 gem "faker", "~> 2.7"
 
-gem "geocoder", "~> 1.5.2"
+gem "geocoder", "~> 1.6.1"
 
 gem "httparty", "~> 0.17.3"
 

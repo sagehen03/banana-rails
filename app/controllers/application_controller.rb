@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
       # should store secret in env variable
       payload_copy = Marshal.load(Marshal.dump(payload))
       # puts "encode token:", JWT.encode(payload_copy, 'my_s3cr3t')
-      JWT.encode(payload, 'my_s3cr3t')
+      JWT.encode(payload, Rails.application.secrets.secret_key_base)
     end
 
     def auth_header
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
         # header: { 'Authorization': 'Bearer <token>' }
         begin
           # puts "decoded token:", JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
-          JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+          JWT.decode(token, Rails.application.secrets.secret_key_base, true, algorithm: 'HS256')
         rescue JWT::DecodeError
           puts "decode error"
           nil
