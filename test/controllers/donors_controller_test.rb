@@ -10,9 +10,10 @@ class DonorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "we successfully register a new donor" do
-    post donors_create_url, params: {donor: { email: "notindb@notindb.com", password: "password",
-                                              address_zip: 98104, account_status: "pending",
+    post donors_create_url, params: {donor: { email: "notindb@notindb.com", password: "password", first_name: "New",
+                                              address_zip: 98104, account_status: "pending", last_name: "Donor",
                                               organization_name: "Uwajimaya", address_street: "600 5th Ave S",
+                                              pickup_instructions: "On the back steps",
                                               address_city: "Seattle", address_state: "WA", business_license: "ADASDFG"}}
     assert_response :success
     just_added = Donor.find_by_email("notindb@notindb.com")
