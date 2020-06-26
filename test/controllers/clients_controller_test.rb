@@ -11,7 +11,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
   test "we successfully register a new client" do
     post clients_create_url, params: {client: { email: "notindb@notindb.com", password: "password",
-                                                address_zip: 90210, account_status: "pending"}}
+                                                address_zip: 90210, account_status: "pending", first_name: "New", last_name: "Client"}}
     assert_response :success
     just_added = Client.find_by_email("notindb@notindb.com")
     assert_not_nil just_added
