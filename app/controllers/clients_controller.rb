@@ -12,9 +12,9 @@ class ClientsController < ApplicationController
   end
 
   def create
-    return render json: { error: 'client email already in use'}, status: :conflict if Client.exists?({email: client_params[:email]})
-    @client = Client.create!(client_params)
-
+    return render json: { error: 'client email already in use'}, status: :conflict if Client.exists?({email: client_params(false)[:email]})
+    params['client']['account_status'] = 'processing'
+    @client = Client.create!(client_params(true))
     if @client.valid?
       @token = encode_token(client_id: @client.id)
       render json: { client: ClientSerializer.new(@client), jwt: @token }, status: :created
@@ -23,9 +23,56 @@ class ClientsController < ApplicationController
     end
   end
 
+  def activate
+      id = params[:id].to_i
+
+      @client = Client.find(id)
+      status = @client.account_status
+
+      failure_message = { error: "Client id: #{id} status not changed to active.  Remained: #{@client.account_status}" }
+
+      if status == 'approved'
+        success_message = { message: "Client id: #{id} status changed to active. Was: #{status}" }
+        success = @client.update_attribute(:account_status, 'active')
+      elsif status == 'active'
+          success_message = { message: "Client id: #{id} status was not updated as the user is already active" }
+          success = true
+      else
+          success = false
+      end
+
+      success ?
+          (render json: success_message, status: :ok) :
+          (render json: failure_message, status: :bad_request)
+  end
+  
+  def account_status_update
+      id = params[:id].to_i
+      status = params[:status]
+
+      @client = Client.find(id)
+      success_message = { message: "Client id: #{id} status changed to #{status}. Was: #{@client.account_status}" }
+      failure_message = { error: "Client id: #{id} status not changed to #{status}.  Remained: #{@client.account_status}" }
+
+      case status
+      when 'approved'
+          success = @client.update_attribute(:account_status, 'approved')
+      when 'processing'
+          success = @client.update_attribute(:account_status, 'processing')
+      when 'active'
+          success = @client.update_attribute(:account_status, 'active')
+      when 'suspended'
+          success = @client.update_attribute(:account_status, 'suspended')
+      end
+
+      success ?
+          (render json: success_message, status: :ok) :
+          (render json: failure_message, status: :unprocessable_entity)
+  end
+
   def update
     @client = Client.find(params[:id])
-    if @client.update(client_params)
+    if @client.update(client_params(false))
       render json: @client
     else
       failure_message = { error: "Client id: #{params[:id]} was not updated. #{@client.errors.full_messages}" }
@@ -100,19 +147,36 @@ class ClientsController < ApplicationController
 
   private
 
-  def client_params
-    params.require(:client).permit(
-      :account_status,
-      #:address_street,
-      #:address_city,
-      #:address_zip,
-      #:address_state,
-      :email,
-      #:ethnicity,
-      #:gender,
-      :password,
-      :first_name,
-      :last_name
-    )
+  def client_params(shouldPermitAccountStatus)
+    if shouldPermitAccountStatus
+        params.require(:client).permit(
+          :email,
+          :password,
+          :first_name,
+          :last_name,
+          :account_status,
+          #:address_street,
+          #:address_city,
+          #:address_zip,
+          #:address_state,
+          #:ethnicity,
+          #:gender
+        )
+    else
+      params.require(:client).permit(
+        :email,
+        :password,
+        :first_name,
+        :last_name,
+        #:account_status,
+        #:address_street,
+        #:address_city,
+        #:address_zip,
+        #:address_state,
+        #:ethnicity,
+        #:gender
+      )
+    end
   end
 end
+
