@@ -56,8 +56,8 @@ class DonorsController < ApplicationController
 		@donor = Donor.find(params[:id])
 		if @donor.update(donor_params)
 			render json: @donor
-        else
-            failure_message = {}
+		else
+			failure_message = {}
             failure_message['message'] = "Donor id: #{params[:id]} was not updated."
             failure_message['field_errors'] = []
             @donor.errors.each do |attr_name, attr_value|
@@ -68,9 +68,8 @@ class DonorsController < ApplicationController
             end
             render json: failure_message, status: :bad_request
             puts failure_message
-        end
-    end
-    
+		end
+	end
 
 	def scan_qr_code
 		claim = JSON.parse(Base64.decode64(params[:qr_code]))
