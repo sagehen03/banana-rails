@@ -10,7 +10,7 @@ class DonorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "we successfully register a new donor" do
-    post donors_create_url, params: {donor: { email: "notindb@notindb.com", password: "password", first_name: "New",
+    post donors_create_url, params: {donor: { email: "notindb@notindb.com", password: "password1!", first_name: "New",
                                               address_zip: 98104, account_status: "pending", last_name: "Donor",
                                               organization_name: "Uwajimaya", address_street: "600 5th Ave S",
                                               pickup_instructions: "On the back steps",
