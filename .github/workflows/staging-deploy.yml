@@ -21,4 +21,6 @@ jobs:
           host: ${{ secrets.STG_SERVER }}
           key: ${{ secrets.STG_PRIVATE_KEY }}
           username: ubuntu
-          script: "'bash -s' < ${{ github.workspace }}/deploy.sh"
+          script: |
+            cd banana-rails
+            sudo docker-compose up -d
