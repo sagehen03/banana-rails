@@ -9,4 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: ssh -i ${{ secrets.STG_PRIVATE_KEY }} ubuntu@${{ secrets.STG_SERVER }} 'ls -al; sudo docker ps'
+      - name: executing remote ssh commands using password
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.STG_SERVER }}
+            key: ${{ secrets.STG_PRIVATE_KEY }}
+            script: whoami
