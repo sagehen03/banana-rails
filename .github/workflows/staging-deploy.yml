@@ -8,4 +8,5 @@ jobs:
     name: deploy to staging
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hello world"
+      - uses: actions/checkout@v1
+      - run: ssh -i ${{ secrets.STG_PRIVATE_KEY }} ubuntu@${{ secrets.STG_SERVER }} 'ls -al; sudo docker ps'
