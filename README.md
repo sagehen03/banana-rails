@@ -26,13 +26,6 @@ Banana App is an open-source, not-for-profit project of The Be Good Foundation. 
 
   to build and run the docker environment.
 
-- Run the command 
-
-  ```
-  docker-compose run web rails db:setup
-  ```
-
-  To initialize the container, hopefully you would only need to run it once. But if you rebuild the docker containers you might need to run it again.
 
 - Visit ``http://localhost:3000`` on your browser if you see the information
 
@@ -92,13 +85,6 @@ Banana App is an open-source, not-for-profit project of The Be Good Foundation. 
 
   to build and run the docker environment.
 
-- Run the command in a new terminal window
-
-  ```
-  docker-compose run web rails db:setup
-  ```
-
-  To initialize the docker
 
 - Visit ``http://localhost:3000`` on your browser if you see the information
 
