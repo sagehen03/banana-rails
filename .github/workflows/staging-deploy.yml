@@ -22,11 +22,11 @@ jobs:
           key: ${{ secrets.STG_PRIVATE_KEY }}
           username: ubuntu
           script: |
-            cd banana-rails
+            cd banana-rails || exit 1
             sudo docker-compose down
             cd ..
             sudo rm -rf banana-rails
             git clone git@github.com:sagehen03/banana-rails.git --depth=1
-            cd banana-rails
+            cd banana-rails || exit 1
             touch dev.env
             sudo docker-compose up -d
