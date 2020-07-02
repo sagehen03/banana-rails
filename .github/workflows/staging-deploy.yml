@@ -8,10 +8,11 @@ jobs:
     name: deploy to staging
     runs-on: ubuntu-latest
     steps:
+      - name: checkout code
       - uses: actions/checkout@v1
       - name: executing remote ssh commands using password
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.STG_SERVER }}
-            key: ${{ secrets.STG_PRIVATE_KEY }}
-            script: whoami
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.STG_SERVER }}
+          key: ${{ secrets.STG_PRIVATE_KEY }}
+          script: whoami
