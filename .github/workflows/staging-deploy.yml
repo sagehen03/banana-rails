@@ -1,6 +1,6 @@
 name: Staging deploy
 on: 
-  push:
+  pull_request:
     branches: 
       - prealpha/main
 jobs:
@@ -8,14 +8,7 @@ jobs:
     name: deploy to staging
     runs-on: ubuntu-latest
     steps:
-      - name: checkout the code so we can access deploy.sh
-        uses: actions/checkout@v2
-      - name: show contents of checkout
-        run: |
-          ls -al ${{ github.workspace }}
-          echo ${{ github.workspace }}
-          cat ${{ github.workspace }}/deploy.sh
-      - name: executing remote ssh commands using password
+      - name: ssh to staging server, stop services, get fresh checkout, restart services
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.STG_SERVER }}
