@@ -1,5 +1,6 @@
+require 'account_status_helper'
 class ClientsController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create]
 
   def index
     @clients = Client.all
@@ -14,18 +15,35 @@ class ClientsController < ApplicationController
 
   def create
     return render json: { error: 'client email already in use'}, status: :conflict if Client.exists?({email: client_params[:email]})
-    @client = Client.create!(client_params)
+    @client = Client.create(client_params)
     if @client.valid?
       @token = encode_token(client_id: @client.id)
       render json: { client: ClientSerializer.new(@client), jwt: @token }, status: :created
     else
-        @client.errors.full_messages
-        render json: { error: 'failed to create client', email: @client.errors.full_messages}, status: :unprocessable_entity
+        render json: { error: 'failed to create client', errors: @client.errors.full_messages}, status: :bad_request
     end
+  end
+  
+  def account_status_update
+      id = params[:id].to_i
+      status = params[:status]
+
+      @client = Client.find_by_id(id)
+      if @client.nil?
+         return render json: { error: "ID: #{params[:id]} not found" }, status: :not_found
+      end
+      
+      response = AccountStatusHelper.account_status("Client", @client, status, id)
+      render json: { message: response[:message] }, status: response[:status]
   end
 
   def update
-    @client = Client.find(params[:id])
+    @client = Client.find_by_id(params[:id])
+    
+    if @client.nil?
+       failure_message = { error: "ID: #{params[:id]} not found" }
+       return render  json: failure_message, status: :not_found
+    end
     if @client.update(client_params)
       render json: @client
     else
@@ -111,17 +129,11 @@ class ClientsController < ApplicationController
 
   def client_params
     params.require(:client).permit(
-      :email,
-      :password,
-      :first_name,
-      :last_name,
-      #:account_status,
-      #:address_street,
-      #:address_city,
-      #:address_zip,
-      #:address_state,
-      #:ethnicity,
-      #:gender
+        :email,
+        :password,
+        :first_name,
+        :last_name
     )
   end
 end
+

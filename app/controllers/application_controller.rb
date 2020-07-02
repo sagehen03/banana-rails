@@ -2,9 +2,6 @@ class ApplicationController < ActionController::API
 	before_action :authorized
 
     def encode_token(payload)
-      # should store secret in env variable
-      payload_copy = Marshal.load(Marshal.dump(payload))
-      # puts "encode token:", JWT.encode(payload_copy, 'my_s3cr3t')
       JWT.encode(payload, Rails.application.secrets.secret_key_base)
     end
 

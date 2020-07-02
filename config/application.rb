@@ -1,5 +1,4 @@
 require_relative 'boot'
-
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -33,5 +32,16 @@ module Backend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.autoload_paths += %W(#{config.root}/app/util)
   end
+end
+
+module AccountStatus
+  PROCESSING = 'processing'
+  APPROVED = 'approved'
+  ACTIVE = 'active'
+  INCOMPLETE = 'incomplete'
+  INACTIVE = 'inactive'
+  SUSPENDED = 'suspended'
+  CLOSED = 'closed'
 end

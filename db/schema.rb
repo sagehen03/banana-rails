@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_234911) do
+ActiveRecord::Schema.define(version: 2020_06_29_184231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_234911) do
     t.string "address_city"
     t.string "address_state"
     t.integer "address_zip"
-    t.string "account_status"
+    t.string "account_status", default: "processing"
     t.string "ethnicity"
     t.string "gender"
     t.integer "document_id"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_234911) do
     t.string "address_state"
     t.integer "address_zip"
     t.string "business_license"
-    t.string "account_status"
+    t.string "account_status", default: "processing"
     t.string "pickup_instructions"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6

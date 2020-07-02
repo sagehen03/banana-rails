@@ -20,12 +20,11 @@ default: &default
   username: <%= ENV['POSTGRES_USER'] || "postgres" %>
   password: <%= ENV['POSTGRES_PASSWORD'] || nil %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  # send the query to db host from db container of docker
+  host: <%= ENV['POSTGRES_HOST'] || "db" %>
 
 development:
   <<: *default
   database: backend_development
-  host: db
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,7 +59,6 @@ development:
 test:
   <<: *default
   database: backend_test
-  host: <%= ENV['POSTGRES_HOST'] || "db" %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
