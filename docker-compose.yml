@@ -23,6 +23,12 @@ services:
       - db
     env_file:
     - dev.env
+  seeder:
+    command: rails db:setup
+    build: .
+    restart: on-failure
+    depends_on:
+      - db
 volumes:
   pgdata:
   
