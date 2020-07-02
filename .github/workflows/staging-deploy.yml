@@ -14,6 +14,7 @@ jobs:
         run: |
           ls -al ${{ github.workspace }}
           echo ${{ github.workspace }}
+          cat ${{ github.workspace }}/deploy.sh
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
