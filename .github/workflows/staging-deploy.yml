@@ -14,4 +14,4 @@ jobs:
           host: ${{ secrets.STG_SERVER }}
           key: ${{ secrets.STG_PRIVATE_KEY }}
           username: ubuntu
-          script: whoami
+          script: "ls -la"
