@@ -10,6 +10,10 @@ jobs:
     steps:
       - name: checkout the code so we can access deploy.sh
         uses: actions/checkout@v1
+      - name: show contents of checkout
+        run: |
+          ls -al ${{ github.workspace }}
+          echo ${{ github.workspace }}
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
