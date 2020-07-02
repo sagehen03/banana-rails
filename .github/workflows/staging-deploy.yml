@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout the code so we can access deploy.sh
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: show contents of checkout
         run: |
           ls -al ${{ github.workspace }}
